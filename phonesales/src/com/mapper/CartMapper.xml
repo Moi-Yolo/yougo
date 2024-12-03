@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.CartDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Cart" >
+    <id column="crid" property="crid" jdbcType="INTEGER" />
+    <result column="modid" property="modid" jdbcType="INTEGER" />
+    <result column="commquantity" property="commquantity" jdbcType="INTEGER" />
+    <result column="purid" property="purid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    crid, modid, commquantity, purid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cart
+    where crid = #{crid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from cart
+    where crid = #{crid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Cart" >
+    insert into cart (crid, modid, commquantity, 
+      purid)
+    values (#{crid,jdbcType=INTEGER}, #{modid,jdbcType=INTEGER}, #{commquantity,jdbcType=INTEGER}, 
+      #{purid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Cart" >
+    insert into cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="crid != null" >
+        crid,
+      </if>
+      <if test="modid != null" >
+        modid,
+      </if>
+      <if test="commquantity != null" >
+        commquantity,
+      </if>
+      <if test="purid != null" >
+        purid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="crid != null" >
+        #{crid,jdbcType=INTEGER},
+      </if>
+      <if test="modid != null" >
+        #{modid,jdbcType=INTEGER},
+      </if>
+      <if test="commquantity != null" >
+        #{commquantity,jdbcType=INTEGER},
+      </if>
+      <if test="purid != null" >
+        #{purid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Cart" >
+    update cart
+    <set >
+      <if test="modid != null" >
+        modid = #{modid,jdbcType=INTEGER},
+      </if>
+      <if test="commquantity != null" >
+        commquantity = #{commquantity,jdbcType=INTEGER},
+      </if>
+      <if test="purid != null" >
+        purid = #{purid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where crid = #{crid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Cart" >
+    update cart
+    set modid = #{modid,jdbcType=INTEGER},
+      commquantity = #{commquantity,jdbcType=INTEGER},
+      purid = #{purid,jdbcType=INTEGER}
+    where crid = #{crid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectcartcomm" resultType="com.entity.Cart" parameterType="com.entity.Cart">
+    select *
+    from cart
+    <where>
+		<if test="modid!=null and modid!=''">
+		and modid=#{modid}
+		</if>
+		<if test="purid!=null and purid!=''">
+		and purid=#{purid}
+		</if>
+		</where>
+  </select>
+    <select id="getcartList"  resultMap="BaseResultMap" parameterType="com.entity.Cart">
+select a.crid,a.commquantity,a.purid,a.modid,b.commname,b.commpicture1 as commpicture ,b.modname,b.modprice,a.commquantity*b.modprice as jiage from cart a left join 
+(select a.*,b.commname,b.commpicture1 from model a left join commodity b on a.commid=b.commid ) as b on a.modid=b.modid
+    <where>
+		<if test="purid!=null and purid!=''">
+		and purid=#{purid}
+		</if>
+		</where>
+  </select>
+  
+  <delete id="cartclear" parameterType="java.lang.Integer" >
+    delete from cart
+    where purid = #{purid,jdbcType=INTEGER}
+  </delete>
+  
+  
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.PurchaserDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Purchaser" >
+    <id column="purid" property="purid" jdbcType="INTEGER" />
+    <result column="purnumber" property="purnumber" jdbcType="VARCHAR" />
+    <result column="purpassword" property="purpassword" jdbcType="VARCHAR" />
+    <result column="purname" property="purname" jdbcType="VARCHAR" />
+    <result column="purtel" property="purtel" jdbcType="VARCHAR" />
+    <result column="puraddress" property="puraddress" jdbcType="VARCHAR" />
+    <result column="puremail" property="puremail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    purid, purnumber, purpassword, purname, purtel, puraddress, puremail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from purchaser
+    where purid = #{purid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from purchaser
+    where purid = #{purid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Purchaser" >
+    insert into purchaser (purid, purnumber, purpassword, 
+      purname, purtel, puraddress, 
+      puremail)
+    values (#{purid,jdbcType=INTEGER}, #{purnumber,jdbcType=VARCHAR}, #{purpassword,jdbcType=VARCHAR}, 
+      #{purname,jdbcType=VARCHAR}, #{purtel,jdbcType=VARCHAR}, #{puraddress,jdbcType=VARCHAR}, 
+      #{puremail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Purchaser" >
+    insert into purchaser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="purid != null" >
+        purid,
+      </if>
+      <if test="purnumber != null" >
+        purnumber,
+      </if>
+      <if test="purpassword != null" >
+        purpassword,
+      </if>
+      <if test="purname != null" >
+        purname,
+      </if>
+      <if test="purtel != null" >
+        purtel,
+      </if>
+      <if test="puraddress != null" >
+        puraddress,
+      </if>
+      <if test="puremail != null" >
+        puremail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="purid != null" >
+        #{purid,jdbcType=INTEGER},
+      </if>
+      <if test="purnumber != null" >
+        #{purnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purpassword != null" >
+        #{purpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="purname != null" >
+        #{purname,jdbcType=VARCHAR},
+      </if>
+      <if test="purtel != null" >
+        #{purtel,jdbcType=VARCHAR},
+      </if>
+      <if test="puraddress != null" >
+        #{puraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="puremail != null" >
+        #{puremail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Purchaser" >
+    update purchaser
+    <set >
+      <if test="purnumber != null" >
+        purnumber = #{purnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="purpassword != null" >
+        purpassword = #{purpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="purname != null" >
+        purname = #{purname,jdbcType=VARCHAR},
+      </if>
+      <if test="purtel != null" >
+        purtel = #{purtel,jdbcType=VARCHAR},
+      </if>
+      <if test="puraddress != null" >
+        puraddress = #{puraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="puremail != null" >
+        puremail = #{puremail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where purid = #{purid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Purchaser" >
+    update purchaser
+    set purnumber = #{purnumber,jdbcType=VARCHAR},
+      purpassword = #{purpassword,jdbcType=VARCHAR},
+      purname = #{purname,jdbcType=VARCHAR},
+      purtel = #{purtel,jdbcType=VARCHAR},
+      puraddress = #{puraddress,jdbcType=VARCHAR},
+      puremail = #{puremail,jdbcType=VARCHAR}
+    where purid = #{purid,jdbcType=INTEGER}
+  </update>
+
+  
+   <select id="getList"   resultMap="BaseResultMap">
+    select * from  purchaser   order by purid desc limit #{begin}, ${size}
+ </select>
+ <select id="getAllList"   resultMap="BaseResultMap">
+      select * from  purchaser  
+  </select>
+ <select id="getTotal" resultType="int">
+    select count(*) from   purchaser
+ </select>
+ <select id="selectBypurnumber" resultType="com.entity.Purchaser" parameterType="com.entity.Purchaser">
+    select * from purchaser
+    <where>
+		<if test="purnumber!=null and purnumber!=''">
+		     and purnumber=#{purnumber}
+		</if>
+	</where>
+ </select>
+<select id="purchaserlogin" resultMap="BaseResultMap">
+    select * from purchaser  where purnumber = #{purnumber} and purpassword = #{purpassword} 
+ </select>
+  <update id="purchaserpassedit" parameterType="com.entity.Purchaser">
+    update purchaser  set purpassword= #{purpassword}  where purnumber = #{purnumber}
+  </update>
+</mapper>

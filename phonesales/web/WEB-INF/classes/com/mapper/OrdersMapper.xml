@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.OrdersDao" >
+ <resultMap id="BaseResultMap" type="com.entity.Orders" >
+    <id column="orid" property="orid" jdbcType="INTEGER" />
+    <result column="ornumber" property="ornumber" jdbcType="VARCHAR" />
+    <result column="ortime" property="ortime" jdbcType="VARCHAR" />
+    <result column="orstate" property="orstate" jdbcType="VARCHAR" />
+    <result column="commprice" property="commprice" jdbcType="DECIMAL" />
+    <result column="modid" property="modid" jdbcType="INTEGER" />
+    <result column="commquantity" property="commquantity" jdbcType="INTEGER" />
+    <result column="purid" property="purid" jdbcType="INTEGER" />
+    <result column="purname" property="purname" jdbcType="VARCHAR" />
+    <result column="purtel" property="purtel" jdbcType="VARCHAR" />
+    <result column="puraddress" property="puraddress" jdbcType="VARCHAR" />
+    <result column="ornotes" property="ornotes" jdbcType="VARCHAR" />
+    <result column="assessflag" property="assessflag" jdbcType="VARCHAR" />
+    <result column="assestime" property="assestime" jdbcType="VARCHAR" />
+    <result column="assrecontent" property="assrecontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orid, ornumber, ortime, orstate, commprice, modid, commquantity, purid, purname, purtel, 
+    puraddress, ornotes, assessflag, assestime, assrecontent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where orid = #{orid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where orid = #{orid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Orders" >
+    insert into orders (orid, ornumber, ortime, 
+      orstate, commprice, modid, 
+      commquantity, purid, purname, 
+      purtel, puraddress, ornotes, 
+      assessflag, assestime, assrecontent
+      )
+    values (#{orid,jdbcType=INTEGER}, #{ornumber,jdbcType=VARCHAR}, #{ortime,jdbcType=VARCHAR}, 
+      #{orstate,jdbcType=VARCHAR}, #{commprice,jdbcType=DECIMAL}, #{modid,jdbcType=INTEGER}, 
+      #{commquantity,jdbcType=INTEGER}, #{purid,jdbcType=INTEGER}, #{purname,jdbcType=VARCHAR}, 
+      #{purtel,jdbcType=VARCHAR}, #{puraddress,jdbcType=VARCHAR}, #{ornotes,jdbcType=VARCHAR}, 
+      #{assessflag,jdbcType=VARCHAR}, #{assestime,jdbcType=VARCHAR}, #{assrecontent,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Orders" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        orid,
+      </if>
+      <if test="ornumber != null" >
+        ornumber,
+      </if>
+      <if test="ortime != null" >
+        ortime,
+      </if>
+      <if test="orstate != null" >
+        orstate,
+      </if>
+      <if test="commprice != null" >
+        commprice,
+      </if>
+      <if test="modid != null" >
+        modid,
+      </if>
+      <if test="commquantity != null" >
+        commquantity,
+      </if>
+      <if test="purid != null" >
+        purid,
+      </if>
+      <if test="purname != null" >
+        purname,
+      </if>
+      <if test="purtel != null" >
+        purtel,
+      </if>
+      <if test="puraddress != null" >
+        puraddress,
+      </if>
+      <if test="ornotes != null" >
+        ornotes,
+      </if>
+      <if test="assessflag != null" >
+        assessflag,
+      </if>
+      <if test="assestime != null" >
+        assestime,
+      </if>
+      <if test="assrecontent != null" >
+        assrecontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        #{orid,jdbcType=INTEGER},
+      </if>
+      <if test="ornumber != null" >
+        #{ornumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ortime != null" >
+        #{ortime,jdbcType=VARCHAR},
+      </if>
+      <if test="orstate != null" >
+        #{orstate,jdbcType=VARCHAR},
+      </if>
+      <if test="commprice != null" >
+        #{commprice,jdbcType=DECIMAL},
+      </if>
+      <if test="modid != null" >
+        #{modid,jdbcType=INTEGER},
+      </if>
+      <if test="commquantity != null" >
+        #{commquantity,jdbcType=INTEGER},
+      </if>
+      <if test="purid != null" >
+        #{purid,jdbcType=INTEGER},
+      </if>
+      <if test="purname != null" >
+        #{purname,jdbcType=VARCHAR},
+      </if>
+      <if test="purtel != null" >
+        #{purtel,jdbcType=VARCHAR},
+      </if>
+      <if test="puraddress != null" >
+        #{puraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ornotes != null" >
+        #{ornotes,jdbcType=VARCHAR},
+      </if>
+      <if test="assessflag != null" >
+        #{assessflag,jdbcType=VARCHAR},
+      </if>
+      <if test="assestime != null" >
+        #{assestime,jdbcType=VARCHAR},
+      </if>
+      <if test="assrecontent != null" >
+        #{assrecontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Orders" >
+    update orders
+    <set >
+      <if test="ornumber != null" >
+        ornumber = #{ornumber,jdbcType=VARCHAR},
+      </if>
+      <if test="ortime != null" >
+        ortime = #{ortime,jdbcType=VARCHAR},
+      </if>
+      <if test="orstate != null" >
+        orstate = #{orstate,jdbcType=VARCHAR},
+      </if>
+      <if test="commprice != null" >
+        commprice = #{commprice,jdbcType=DECIMAL},
+      </if>
+      <if test="modid != null" >
+        modid = #{modid,jdbcType=INTEGER},
+      </if>
+      <if test="commquantity != null" >
+        commquantity = #{commquantity,jdbcType=INTEGER},
+      </if>
+      <if test="purid != null" >
+        purid = #{purid,jdbcType=INTEGER},
+      </if>
+      <if test="purname != null" >
+        purname = #{purname,jdbcType=VARCHAR},
+      </if>
+      <if test="purtel != null" >
+        purtel = #{purtel,jdbcType=VARCHAR},
+      </if>
+      <if test="puraddress != null" >
+        puraddress = #{puraddress,jdbcType=VARCHAR},
+      </if>
+      <if test="ornotes != null" >
+        ornotes = #{ornotes,jdbcType=VARCHAR},
+      </if>
+      <if test="assessflag != null" >
+        assessflag = #{assessflag,jdbcType=VARCHAR},
+      </if>
+      <if test="assestime != null" >
+        assestime = #{assestime,jdbcType=VARCHAR},
+      </if>
+      <if test="assrecontent != null" >
+        assrecontent = #{assrecontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where orid = #{orid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Orders" >
+    update orders
+    set ornumber = #{ornumber,jdbcType=VARCHAR},
+      ortime = #{ortime,jdbcType=VARCHAR},
+      orstate = #{orstate,jdbcType=VARCHAR},
+      commprice = #{commprice,jdbcType=DECIMAL},
+      modid = #{modid,jdbcType=INTEGER},
+      commquantity = #{commquantity,jdbcType=INTEGER},
+      purid = #{purid,jdbcType=INTEGER},
+      purname = #{purname,jdbcType=VARCHAR},
+      purtel = #{purtel,jdbcType=VARCHAR},
+      puraddress = #{puraddress,jdbcType=VARCHAR},
+      ornotes = #{ornotes,jdbcType=VARCHAR},
+      assessflag = #{assessflag,jdbcType=VARCHAR},
+      assestime = #{assestime,jdbcType=VARCHAR},
+      assrecontent = #{assrecontent,jdbcType=VARCHAR}
+    where orid = #{orid,jdbcType=INTEGER}
+  </update>
+  <select id="getList"  resultMap="BaseResultMap">
+      select a.*,b.commname,b.commpicture1 as commpicture,b.modname  from  orders a left join (select a.*,b.commname,b.commpicture1 from model a left join commodity b on a.commid=b.commid ) as b on a.modid=b.modid where 1>0 ${where}  order by orid desc limit #{begin}, ${size}
+  </select>
+  
+  <select id="getTotal" resultType="int">
+    select count(*) from  orders  where 1>0 ${where} 
+  </select>
+  
+  
+    <select id="getList1"  resultMap="BaseResultMap">
+      select  a.commname,b.shuliang from commodity a left join (select SUM(commquantity) as shuliang,modid from orders ${where}  group by modid) as b on a.modid=b.modid  where shuliang is not null order by shuliang DESC  limit #{begin}, ${size}
+  </select>
+  
+  <select id="getTotal1" resultType="int">
+       select count(*)  from commodity a left join (select SUM(commquantity) as shuliang,modid from orders ${where}  group by modid) as b on a.modid=b.modid  where shuliang is not null order by shuliang DESC 
+  </select>
+</mapper>

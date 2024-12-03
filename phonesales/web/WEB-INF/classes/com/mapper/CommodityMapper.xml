@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.CommodityDao" >
+    <resultMap id="BaseResultMap" type="com.entity.Commodity" >
+    <id column="commid" property="commid" jdbcType="VARCHAR" />
+    <result column="commnumber" property="commnumber" jdbcType="VARCHAR" />
+    <result column="commname" property="commname" jdbcType="VARCHAR" />
+    <result column="sortid" property="sortid" jdbcType="INTEGER" />
+    <result column="commobject" property="commobject" jdbcType="VARCHAR" />
+    <result column="commpicture1" property="commpicture1" jdbcType="VARCHAR" />
+    <result column="commpicture2" property="commpicture2" jdbcType="VARCHAR" />
+    <result column="commpicture3" property="commpicture3" jdbcType="VARCHAR" />
+    <result column="commpicture4" property="commpicture4" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.entity.Commodity" extends="BaseResultMap" >
+    <result column="commcontent" property="commcontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    commid, commnumber, commname, sortid, commobject, commpicture1, commpicture2, commpicture3, 
+    commpicture4
+  </sql>
+  <sql id="Blob_Column_List" >
+    commcontent
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from commodity
+    where commid = #{commid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from commodity
+    where commid = #{commid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Commodity" >
+    insert into commodity (commid, commnumber, commname, 
+      sortid, commobject, commpicture1, 
+      commpicture2, commpicture3, commpicture4, 
+      commcontent)
+    values (#{commid,jdbcType=VARCHAR}, #{commnumber,jdbcType=VARCHAR}, #{commname,jdbcType=VARCHAR}, 
+      #{sortid,jdbcType=INTEGER}, #{commobject,jdbcType=VARCHAR}, #{commpicture1,jdbcType=VARCHAR}, 
+      #{commpicture2,jdbcType=VARCHAR}, #{commpicture3,jdbcType=VARCHAR}, #{commpicture4,jdbcType=VARCHAR}, 
+      #{commcontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Commodity" >
+    insert into commodity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commid != null" >
+        commid,
+      </if>
+      <if test="commnumber != null" >
+        commnumber,
+      </if>
+      <if test="commname != null" >
+        commname,
+      </if>
+      <if test="sortid != null" >
+        sortid,
+      </if>
+      <if test="commobject != null" >
+        commobject,
+      </if>
+      <if test="commpicture1 != null" >
+        commpicture1,
+      </if>
+      <if test="commpicture2 != null" >
+        commpicture2,
+      </if>
+      <if test="commpicture3 != null" >
+        commpicture3,
+      </if>
+      <if test="commpicture4 != null" >
+        commpicture4,
+      </if>
+      <if test="commcontent != null" >
+        commcontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commid != null" >
+        #{commid,jdbcType=VARCHAR},
+      </if>
+      <if test="commnumber != null" >
+        #{commnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="commname != null" >
+        #{commname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortid != null" >
+        #{sortid,jdbcType=INTEGER},
+      </if>
+      <if test="commobject != null" >
+        #{commobject,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture1 != null" >
+        #{commpicture1,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture2 != null" >
+        #{commpicture2,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture3 != null" >
+        #{commpicture3,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture4 != null" >
+        #{commpicture4,jdbcType=VARCHAR},
+      </if>
+      <if test="commcontent != null" >
+        #{commcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Commodity" >
+    update commodity
+    <set >
+      <if test="commnumber != null" >
+        commnumber = #{commnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="commname != null" >
+        commname = #{commname,jdbcType=VARCHAR},
+      </if>
+      <if test="sortid != null" >
+        sortid = #{sortid,jdbcType=INTEGER},
+      </if>
+      <if test="commobject != null" >
+        commobject = #{commobject,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture1 != null" >
+        commpicture1 = #{commpicture1,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture2 != null" >
+        commpicture2 = #{commpicture2,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture3 != null" >
+        commpicture3 = #{commpicture3,jdbcType=VARCHAR},
+      </if>
+      <if test="commpicture4 != null" >
+        commpicture4 = #{commpicture4,jdbcType=VARCHAR},
+      </if>
+      <if test="commcontent != null" >
+        commcontent = #{commcontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where commid = #{commid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.entity.Commodity" >
+    update commodity
+    set commnumber = #{commnumber,jdbcType=VARCHAR},
+      commname = #{commname,jdbcType=VARCHAR},
+      sortid = #{sortid,jdbcType=INTEGER},
+      commobject = #{commobject,jdbcType=VARCHAR},
+      commpicture1 = #{commpicture1,jdbcType=VARCHAR},
+      commpicture2 = #{commpicture2,jdbcType=VARCHAR},
+      commpicture3 = #{commpicture3,jdbcType=VARCHAR},
+      commpicture4 = #{commpicture4,jdbcType=VARCHAR},
+      commcontent = #{commcontent,jdbcType=LONGVARCHAR}
+    where commid = #{commid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Commodity" >
+    update commodity
+    set commnumber = #{commnumber,jdbcType=VARCHAR},
+      commname = #{commname,jdbcType=VARCHAR},
+      sortid = #{sortid,jdbcType=INTEGER},
+      commobject = #{commobject,jdbcType=VARCHAR},
+      commpicture1 = #{commpicture1,jdbcType=VARCHAR},
+      commpicture2 = #{commpicture2,jdbcType=VARCHAR},
+      commpicture3 = #{commpicture3,jdbcType=VARCHAR},
+      commpicture4 = #{commpicture4,jdbcType=VARCHAR}
+    where commid = #{commid,jdbcType=VARCHAR}
+  </update>
+
+  
+  
+   <select id="getList"  resultMap="BaseResultMap">
+      select a.*,b.sortname,b.catename,modprice from  commodity a left join (select m.*,n.catename from sort m left join category n on m.cateid=n.cateid) b on a.sortid=b.sortid LEFT JOIN(select  min(modprice) as modprice,commid from model group by commid) as c on a.commid=c.commid where 1>0 ${where}  order by commid desc limit #{begin}, ${size}
+  </select>
+
+  <select id="getTotal" resultType="int">
+    select count(*) from  commodity a left join sort b on a.sortid=b.sortid  where 1>0 ${where} 
+  </select>
+       <select id="getshuliangList"  resultMap="BaseResultMap">
+select  a.*,b.shuliang from commodity a left join (select SUM(commquantity) as shuliang,commid from orders a left join model b on a.modid=b.modid   group by commid) as b on a.commid=b.commid
+
+
+
+where shuliang is not null
+  </select>
+  <select id="getshuliangTotal" resultType="int">
+    select count(*) from commodity a left join (select SUM(commquantity) as shuliang,commid from orders a left join model b on a.modid=b.modid   group by commid) as b on a.commid=b.commid 
+
+
+
+where shuliang is not null 
+  </select>
+</mapper>
